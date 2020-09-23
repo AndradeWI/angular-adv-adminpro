@@ -14,8 +14,8 @@ export class SidebarService {
         { titulo: 'ProgressBar', url: 'progress' },
         { titulo: 'Gráficas', url: 'grafica1' },
       ]
-    }
-  ]
+    },
+  ];
 
   constructor() { }
 }

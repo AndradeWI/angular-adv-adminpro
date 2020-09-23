@@ -19,6 +19,7 @@
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">PERSONAL</li>
+
                 <li *ngFor="let item of menuItems"> 
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                         <i class="mdi mdi-gauge"></i>
@@ -29,12 +30,14 @@
                             </span>
                         </span>
                     </a>
+                    
                     <ul aria-expanded="false" class="collapse">
                         <li *ngFor="let subMenuItem of item.submenu">
                             <a [routerLink]="subMenuItem.url">{{ subMenuItem.titulo }}</a>
                         </li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
