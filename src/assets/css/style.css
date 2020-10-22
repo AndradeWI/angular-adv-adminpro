@@ -294,7 +294,8 @@ html body .m-t-15 {
   margin-top: 15px; }
 
 html body .m-t-20 {
-  margin-top: 20px; }
+  margin-top: 20px;
+  }
 
 html body .m-t-30 {
   margin-top: 30px; }
@@ -2571,7 +2572,8 @@ form label {
   font-weight: 400; }
 
 .form-group {
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  }
 
 .form-horizontal label {
   margin-bottom: 0px; }

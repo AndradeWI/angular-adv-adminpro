@@ -7,6 +7,13 @@
     animation-fill-mode:both
 }
 
-#themecolors .selector {
+#themecolors .selector, .cursor {
     cursor: pointer;
+}
+
+#my-signin2 {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
