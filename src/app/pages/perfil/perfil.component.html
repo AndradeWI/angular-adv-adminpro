@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Meu perfil de usuário</h4>
+                <h6 class="card-subtitle">Ajuste</h6>
+                <form class="form p-t-20" 
+                        [formGroup]="perfilForm"
+                        (submit)="updatePerfil()">
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="exampleInputuname" 
+                                   placeholder="Nome usuário"
+                                   formControlName="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" 
+                                   class="form-control" 
+                                   id="exampleInputEmail1" 
+                                   placeholder="Email usuário"
+                                   formControlName="email"
+                                   [readOnly]="usuario.google">
+                        </div>
+                    </div>
+                    <button type="submit" 
+                            class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                            [disabled]="perfilForm.invalid">
+                        <i class="fa fa-save"> </i>
+                        Salvar mudanças
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Avatar</h4>
+                <h6 class="card-subtitle">Imagem do usuário</h6>
+
+                <div class="text-center">
+                    <img *ngIf="!imgTemp" [src]="usuario.imagenUrl" 
+                         alt="Imagem de perfil do usuário"
+                         class="img-avatar">
+                    <img *ngIf="imgTemp" [src]="imgTemp" 
+                         alt="Imagem de perfil do usuário"
+                         class="img-avatar">
+                </div>
+                <input type="file"
+                        (change)="mudarImagem($event.target.files[0])">
+
+                <br>
+                <br>
+
+                <button type="button" 
+                        class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                        [disabled]="!imagemSubir"
+                        (click)="subirImagem()">
+                    <i class="fa fa-save"> </i>
+                    Mudar imagem
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
