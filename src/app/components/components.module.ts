@@ -6,17 +6,20 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
 
 import { IncrementadorComponent } from './incrementador/incrementador.component';
 import { DonaComponent } from './dona/dona.component';
+import { ModalImagemComponent } from './modal-imagem/modal-imagem.component';
 
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
+    ModalImagemComponent
   ],
   exports: [
     IncrementadorComponent,
-    DonaComponent
+    DonaComponent,
+    ModalImagemComponent
   ],
   providers: [ ThemeService  ],
   imports: [

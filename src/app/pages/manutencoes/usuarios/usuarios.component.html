@@ -1,0 +1,95 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar usuários..."
+                        (keyup)="buscar( textBusca.value )"
+                        #textBusca/>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast"
+        *ngIf="loading">
+    <div class="col-12">
+
+        <div class="alert alert-success text-center">
+            <h4 class="alert-heading">Carregando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor aguarde</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" 
+    *ngIf="!loading">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Total de usuários ({{ totalUsuarios }})</h4>
+                <h6 class="card-subtitle">Usuários registrados na aplicação</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Avatar</th>
+                                <th>Email</th>
+                                <th>Nome</th>
+                                <th class="w140">Role</th>
+                                <th class="w100">Auth</th>
+                                <th class="text-nowrap w100">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let usuario of usuarios">
+                                <td class="text-center">
+                                    <img [src]="usuario.imagenUrl" 
+                                            alt="Avatar"
+                                            class="avatar cursor"
+                                            (click)="abrirModal(usuario)">
+                                </td>
+                                <td>{{ usuario.email }}</td>
+                                <td>{{ usuario.name }}</td>
+                                <td>
+                                    <select class="form-control"
+                                            [(ngModel)]="usuario.role"
+                                            (change)="mudarRole( usuario )">
+                                        <option value="ADMIN_ROLE">Admin</option>
+                                        <option value="USER_ROLE">User</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <span *ngIf="usuario.google" class="label label-danger">Google</span>
+                                    <span *ngIf="!usuario.google" class="label label-info">Email</span>
+                                </td>
+                        
+                                <td class="text-nowrap text-center">
+                                    <a data-toggle="tooltip" 
+                                        data-original-title="Excluir"
+                                        class="cursor"
+                                        (click)="exluirUsuario( usuario )"> 
+                                        <i class="fa fa-trash text-danger"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+
+                <div *ngIf="textBusca.value.length === 0">
+                    <button (click)="mudarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+                    <button (click)="mudarPagina(5)"  class="btn btn-secondary ml-3">Próximos</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

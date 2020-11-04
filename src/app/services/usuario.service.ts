@@ -2,13 +2,15 @@ import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from './../../environments/environment';
 
 import { RegistroForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { LoadUsuario } from '../interfaces/load-usuarios.interface';
+
 import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
@@ -35,6 +37,14 @@ get token(): string {
 
 get uid(): string {
   return this.usuario.uid || '';
+}
+
+get headers() {
+  return {
+    headers: {
+      'x-token': this.token
+    }
+  }
 }
   
 
@@ -97,11 +107,7 @@ get uid(): string {
       role: this.usuario.role
     };
 
-    return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    });
+    return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, this.headers);
 
   }
 
@@ -123,6 +129,37 @@ get uid(): string {
                localStorage.setItem('token', resp.token)
              } )
            );
+  }
+
+  loadingUsuarios( desde: number = 0) {
+
+    const url = `${ base_url }/usuarios?desde=${ desde }`;
+    return this.http.get<LoadUsuario>( url, this.headers )
+            .pipe(
+              map( resp => {
+                
+                const usuarios = resp.usuarios.map(
+                  user => new Usuario(user.name, user.email, '', user.img, user.google, user.role, user.uid)
+                );
+                return {
+                  total: resp.total,
+                  usuarios
+                };
+              })
+            );
+  }
+
+  exluirUsuario( usuario: Usuario ) {
+    
+   const url = `${ base_url }/usuarios/${ usuario.uid }`;
+   return this.http.delete( url, this.headers );
+
+  }
+
+  updateRoleUser( usuario: Usuario ) {
+
+    return this.http.put(`${ base_url }/usuarios/${ usuario.uid }`, usuario, this.headers);
+
   }
 
 }
