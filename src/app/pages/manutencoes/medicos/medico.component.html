@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Médico</h4>
+                <h6 class="card-subtitle">Atualizar dados</h6>
+                <form class="form-horizontal p-t-20"
+                        [formGroup]="medicoForm"
+                        (submit)="saveMedico()">
+
+                    <div class="form-group row"
+                        *ngIf="medicoSelecionado">
+                        <label for="fotoMedico" class="col-sm-3 control-label">Foto</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <img [src]="medicoSelecionado.img | imagem: 'medicos'" 
+                                        alt="Foto do médico" 
+                                        class="w200">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nameMedico" class="col-sm-3 control-label">Nome</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" 
+                                        formControlName="name"
+                                        class="form-control" 
+                                        id="nameMedico" 
+                                        placeholder="Nome do médico">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hospital" class="col-sm-3 control-label">Hospital</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-home"></i></div>
+                                <select class="form-control"
+                                        formControlName="hospital">
+                                    <option value="">Selecione Hospital</option>
+                                    <option *ngFor="let hospital of hospitais" 
+                                        [value]="hospital._id">{{ hospital.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" 
+                                    [disabled]="medicoForm.invalid"
+                                    class="btn btn-success waves-effect waves-light">
+                                <i class="fa fa-save"></i>
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 animated fadeIn fast" 
+            *ngIf="hospitalSelecionado">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hospital</h4>
+                <h6 class="card-subtitle">{{ hospitalSelecionado.name }}</h6>
+
+                <img [src]="hospitalSelecionado.img | imagem: 'hospitais'" 
+                        alt="Foto do médico" 
+                        class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+</div>

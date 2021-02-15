@@ -1,0 +1,106 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar hospitais..."
+                        #textBusca
+                        (keyup)="buscar( textBusca.value )"/>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast"
+    *ngIf="loading">
+    <div class="col-12">
+
+        <div class="alert alert-success text-center">
+            <h4 class="alert-heading">Carregando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor aguarde</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="row"
+    *ngIf="!loading">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Hospitais ({{ hospitais.length }})</h4>
+                        <h6 class="card-subtitle">
+                            Hospitais registrados na aplicação
+                        </h6>
+                    </div>
+                    <div class="col-4">
+                        <div class="text-right">
+                            <button class="btn btn-primary"
+                                    (click)="modalCriarHospital()">
+                                <i class="fa fa-hospital-o"></i>
+                                Criar hospital
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Foto</th>
+                                <th>Nome</th>
+                                <th class="w100 text-nowrap">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let hospital of hospitais">
+                                <td class="text-center">
+                                    <img [src]="hospital.img | imagem:'hospitais'" 
+                                            [alt]="hospital.name"
+                                            class="w100 cursor"
+                                            (click)="abrirModal(hospital)">
+                                </td>
+                                <td>
+                                    <input type="text"
+                                            class="form-control"
+                                            placeholder="Nome do hospital"
+                                            [(ngModel)]="hospital.name"/>
+                                </td>
+                        
+                                <td class="text-nowrap text-center">
+                                    <a (click)="updateHospital(hospital)" 
+                                        data-toggle="tooltip" 
+                                        class="cursor"
+                                        data-original-title="Salvar Alteração"> 
+                                        <i class="fa fa-save text-inverse m-r-10"></i> 
+                                    </a>
+                                    <a (click)="deleteHospital(hospital)"
+                                        data-toggle="tooltip" 
+                                        class="cursor"
+                                        data-original-title="Excluir"> 
+                                        <i class="fa fa-trash text-danger"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <button class="btn btn-secondary">Anteriores</button>
+                <button class="btn btn-secondary ml-3">Próximos</button> -->
+
+            </div>
+        </div>
+    </div>
+</div>
